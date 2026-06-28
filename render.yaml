@@ -1,0 +1,37 @@
+# Render Blueprint for the Quill API (Express + alert scheduler).
+# In the Render dashboard: New → Blueprint → connect this repo. Fill the
+# secret env vars (marked sync:false) afterward.
+services:
+  - type: web
+    name: quill-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SEC_USER_AGENT
+        value: Quill Research tania2020076@gmail.com
+      # SEC blocks Render's IP — fetch SEC through the Vercel app's proxy rewrites.
+      - key: SEC_PROXY_BASE
+        value: https://quill-app-sec.vercel.app
+      # --- secrets / per-deploy values: set these in the Render dashboard ---
+      - key: DATABASE_URL # Neon connection string
+        sync: false
+      - key: JWT_SECRET # long random string
+        sync: false
+      - key: CLIENT_URL # your Vercel app URL, e.g. https://quill-app.vercel.app
+        sync: false
+      - key: SERVER_URL # same Vercel app URL (OAuth/verify links proxy through Vercel)
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: EMAIL_FROM # a Brevo-verified sender, e.g. "Quill <you@gmail.com>"
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
