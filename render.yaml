@@ -17,7 +17,7 @@ services:
         value: Quill Research tania2020076@gmail.com
       # SEC blocks Render's IP — fetch SEC through the Vercel app's proxy rewrites.
       - key: SEC_PROXY_BASE
-        value: https://quill-client.vercel.app
+        value: https://quill-sec.vercel.app
       # --- secrets / per-deploy values: set these in the Render dashboard ---
       - key: DATABASE_URL # Neon connection string
         sync: false
